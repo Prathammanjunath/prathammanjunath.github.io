@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — [Your Name]</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f0e8;
+    --cream: #ede7d9;
+    --accent: #c8452a;
+    --accent2: #e8b84b;
+    --gray: #2a2a2a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, width 0.15s, height 0.15s, background 0.15s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(200,69,42,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%);
+  }
+  body:has(a:hover) .cursor { width: 20px; height: 20px; background: var(--accent2); }
+  body:has(a:hover) .cursor-ring { width: 60px; height: 60px; border-color: var(--accent2); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 2rem 3rem;
+    mix-blend-mode: difference;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; }
+  .nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent2); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 8rem 3rem 5rem;
+    position: relative; z-index: 2;
+  }
+  .hero-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 7vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent2);
+    display: block;
+  }
+  .hero-sub {
+    font-size: 0.75rem;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.55);
+    max-width: 320px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 1rem;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 0.5rem;
+    width: fit-content;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+    transition: gap 0.3s;
+  }
+  .hero-cta:hover { gap: 2rem; }
+  .hero-cta::after { content: '→'; }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-img-grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+    gap: 4px;
+    animation: fadeIn 1.2s 0.2s both;
+  }
+  .hero-img {
+    background: var(--gray);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-img::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a1a1a 0%, #3a2a1a 50%, #1a1a2a 100%);
+  }
+  .hero-img-1::before { background: linear-gradient(135deg, #2a1a10 0%, #5a3020 60%, #1a1010 100%); }
+  .hero-img-2::before { background: linear-gradient(225deg, #101a2a 0%, #203040 60%, #101015 100%); }
+  .hero-img .placeholder-text {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.15);
+    letter-spacing: 0.1em;
+  }
+
+  .hero-number {
+    position: absolute;
+    bottom: 2rem; left: 3rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,240,232,0.3);
+    opacity: 0;
+    animation: fadeIn 1s 1.2s forwards;
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    border-top: 1px solid rgba(245,240,232,0.1);
+    border-bottom: 1px solid rgba(245,240,232,0.1);
+    padding: 1.2rem 0;
+    overflow: hidden;
+    background: var(--accent);
+  }
+  .marquee-track {
+    display: flex; gap: 3rem;
+    animation: marquee 18s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 3rem;
+  }
+  .marquee-item::after { content: '✦'; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ABOUT */
+  #about {
+    padding: 10rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .about-image-wrap {
+    position: relative;
+  }
+  .about-img-main {
+    width: 100%; aspect-ratio: 3/4;
+    background: var(--gray);
+    position: relative;
+    overflow: hidden;
+  }
+  .about-img-main::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, #2a1508 0%, #6b3520 40%, #1a0a05 100%);
+  }
+  .about-img-main .placeholder-text {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.2);
+    letter-spacing: 0.1em;
+  }
+  .about-accent-box {
+    position: absolute;
+    top: -1.5rem; right: -1.5rem;
+    width: 80px; height: 80px;
+    background: var(--accent2);
+    z-index: -1;
+  }
+  .about-year {
+    position: absolute;
+    bottom: -1rem; left: -1rem;
+    background: var(--black);
+    border: 1px solid rgba(245,240,232,0.1);
+    padding: 1rem 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--accent2);
+    line-height: 1;
+  }
+  .about-year span { display: block; font-size: 0.55rem; font-family: 'Space Mono', monospace; font-weight: 400; color: rgba(245,240,232,0.4); letter-spacing: 0.2em; margin-top: 0.3rem; }
+
+  .about-content .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .about-content .section-label::before { content: ''; width: 30px; height: 1px; background: var(--accent); }
+  .about-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+  .about-title em { font-style: italic; color: var(--accent2); }
+  .about-text {
+    font-size: 0.75rem;
+    line-height: 2;
+    color: rgba(245,240,232,0.6);
+    margin-bottom: 1.5rem;
+  }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .stat { border-left: 2px solid var(--accent); padding-left: 1rem; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--white);
+  }
+  .stat-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,240,232,0.4); margin-top: 0.3rem; }
+
+  /* WORK */
+  #work {
+    padding: 5rem 3rem 10rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .work-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid rgba(245,240,232,0.1);
+    padding-bottom: 2rem;
+  }
+  .work-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 900;
+    line-height: 1;
+  }
+  .work-title em { font-style: italic; color: var(--accent); }
+  .work-count { font-size: 0.6rem; letter-spacing: 0.2em; color: rgba(245,240,232,0.3); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+  }
+  .project {
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+  }
+  .project-img {
+    aspect-ratio: 4/3;
+    background: var(--gray);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .project:nth-child(1) .project-img { aspect-ratio: 3/4; }
+  .project:nth-child(1) { grid-row: span 2; }
+  .project-img::before {
+    content: '';
+    position: absolute; inset: 0;
+    transition: opacity 0.4s;
+    z-index: 1;
+  }
+  .project:nth-child(1) .project-img::before { background: linear-gradient(160deg, #0a1520 0%, #1a3040 60%, #050a10 100%); }
+  .project:nth-child(2) .project-img::before { background: linear-gradient(200deg, #1a0a05 0%, #402010 60%, #0a0505 100%); }
+  .project:nth-child(3) .project-img::before { background: linear-gradient(20deg, #0a1505 0%, #203020 60%, #050a05 100%); }
+  .project-img .placeholder-text {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.15);
+    letter-spacing: 0.1em;
+  }
+  .project-overlay {
+    position: absolute; inset: 0;
+    background: rgba(10,10,10,0.7);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 2.5rem;
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 3;
+  }
+  .project:hover .project-overlay { opacity: 1; }
+  .project:hover .project-img { transform: scale(1.04); }
+  .project-cat {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.5rem;
+  }
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+  .project-arrow {
+    position: absolute; top: 2rem; right: 2rem;
+    width: 40px; height: 40px;
+    border: 1px solid rgba(245,240,232,0.4);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .project:hover .project-arrow { background: var(--accent); border-color: var(--accent); }
+
+  /* CONTACT */
+  #contact {
+    background: var(--cream);
+    color: var(--black);
+    padding: 10rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  #contact::before {
+    content: 'CONTACT';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 20vw;
+    font-weight: 900;
+    color: rgba(0,0,0,0.04);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .contact-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+    position: relative; z-index: 1;
+  }
+  .contact-left .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .contact-left .section-label::before { content: ''; width: 30px; height: 1px; background: var(--accent); }
+  .contact-big {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 2rem;
+  }
+  .contact-big em { font-style: italic; color: var(--accent); }
+  .contact-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 2;
+    color: rgba(10,10,10,0.6);
+    max-width: 360px;
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+  }
+  .form-group input,
+  .form-group textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(10,10,10,0.2);
+    padding: 0.8rem 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--black);
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--accent); }
+  .form-group textarea { min-height: 100px; }
+  .submit-btn {
+    background: var(--black);
+    color: var(--cream);
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: none;
+    align-self: flex-start;
+    transition: background 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .submit-btn::after {
+    content: '→';
+    margin-left: 1rem;
+  }
+  .submit-btn:hover { background: var(--accent); transform: translateX(4px); }
+
+  .contact-links {
+    margin-top: 4rem;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .contact-link {
+    display: flex; align-items: center; justify-content: space-between;
+    text-decoration: none;
+    color: var(--black);
+    border-bottom: 1px solid rgba(10,10,10,0.1);
+    padding-bottom: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--accent); }
+  .contact-link span { font-size: 1.2rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    padding: 2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(245,240,232,0.05);
+  }
+  footer p { font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(245,240,232,0.2); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    #about, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project:nth-child(1) { grid-row: span 1; }
+    .project:nth-child(1) .project-img { aspect-ratio: 4/3; }
+    nav { padding: 1.5rem 1.5rem; }
+    .hero-left { padding: 8rem 1.5rem 4rem; }
+    #about, #work { padding: 5rem 1.5rem; }
+    #contact { padding: 5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Alex Mercer</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Visual Storyteller · Est. 2016</p>
+    <h1 class="hero-title">
+      Light &<br><em>Shadow</em>
+    </h1>
+    <p class="hero-sub">Photography that lives at the intersection of raw emotion and deliberate craft. Portraits, landscapes, editorial — every frame a story untold.</p>
+    <a href="#work" class="hero-cta">View My Work</a>
+    <p class="hero-number">001 / PORTFOLIO</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-grid">
+      <div class="hero-img hero-img-1">
+        <div class="placeholder-text">[ your photo here ]</div>
+      </div>
+      <div class="hero-img hero-img-2">
+        <div class="placeholder-text">[ your photo here ]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Portrait Photography</span>
+    <span class="marquee-item">Landscape & Nature</span>
+    <span class="marquee-item">Editorial & Fashion</span>
+    <span class="marquee-item">Documentary</span>
+    <span class="marquee-item">Fine Art Prints</span>
+    <span class="marquee-item">Commercial Work</span>
+    <span class="marquee-item">Portrait Photography</span>
+    <span class="marquee-item">Landscape & Nature</span>
+    <span class="marquee-item">Editorial & Fashion</span>
+    <span class="marquee-item">Documentary</span>
+    <span class="marquee-item">Fine Art Prints</span>
+    <span class="marquee-item">Commercial Work</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-image-wrap reveal">
+    <div class="about-img-main">
+      <div class="placeholder-text">[ your portrait here ]</div>
+    </div>
+    <div class="about-accent-box"></div>
+    <div class="about-year">
+      08<span>years of craft</span>
+    </div>
+  </div>
+  <div class="about-content reveal">
+    <p class="section-label">About Me</p>
+    <h2 class="about-title">I chase the <em>unrepeatable</em> moment.</h2>
+    <p class="about-text">Based in [Your City], I've spent the last eight years obsessively documenting the world — one frame at a time. My work draws on contrast: harsh light against soft skin, stillness amid chaos, the intimate within the vast.</p>
+    <p class="about-text">Whether shooting portraits for editorial clients or hiking remote ridgelines for a single shot, I bring the same focus: find the truth of the scene, then make it undeniable.</p>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-num">240+</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">18</div>
+        <div class="stat-label">Countries Shot In</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">12</div>
+        <div class="stat-label">Awards & Publications</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Creative Ownership</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-header reveal">
+    <h2 class="work-title">Selected<br><em>Work</em></h2>
+    <p class="work-count">03 Projects</p>
+  </div>
+  <div class="projects-grid">
+    <div class="project reveal">
+      <div class="project-img">
+        <div class="placeholder-text">[ project image ]</div>
+      </div>
+      <div class="project-overlay">
+        <p class="project-cat">Portrait Series</p>
+        <h3 class="project-name">Faces of the City</h3>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+    <div class="project reveal">
+      <div class="project-img">
+        <div class="placeholder-text">[ project image ]</div>
+      </div>
+      <div class="project-overlay">
+        <p class="project-cat">Landscape</p>
+        <h3 class="project-name">The Northern Edge</h3>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+    <div class="project reveal">
+      <div class="project-img">
+        <div class="placeholder-text">[ project image ]</div>
+      </div>
+      <div class="project-overlay">
+        <p class="project-cat">Editorial</p>
+        <h3 class="project-name">Between the Lines</h3>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="contact-big">Let's make something <em>real.</em></h2>
+      <p class="contact-text">Booking for 2026. Whether it's a commercial brief, a personal project, or something in between — I'd love to hear what you're building.</p>
+      <div class="contact-links">
+        <a href="mailto:hello@alexmercer.com" class="contact-link">
+          hello@alexmercer.com <span>↗</span>
+        </a>
+        <a href="#" class="contact-link">
+          Instagram <span>↗</span>
+        </a>
+        <a href="#" class="contact-link">
+          LinkedIn <span>↗</span>
+        </a>
+      </div>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="return false;">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Jane Smith">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="jane@example.com">
+        </div>
+        <div class="form-group">
+          <label>Project Type</label>
+          <input type="text" placeholder="Editorial, Portrait, Commercial...">
+        </div>
+        <div class="form-group">
+          <label>Tell Me About It</label>
+          <textarea placeholder="Describe your project, timeline, and vision..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Alex Mercer. All Rights Reserved.</p>
+  <p>Designed with intention.</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
