@@ -362,8 +362,8 @@
           <div class="contact-way-left"><span class="contact-way-label">Email Us</span><span class="contact-way-value"><span class="__cf_email__" data-cfemail="deb6bbb2b2b19eb2b7b3bbadb1babff0b7b0">[email&#160;protected]</span></span></div>
           <span class="contact-way-arrow">↗</span>
         </a>
-        <a href="#" class="contact-way">
-          <div class="contact-way-left"><span class="contact-way-label">Instagram</span><span class="contact-way-value">@limesoda.studio</span></div>
+        <a href="https://instagram.com/l1mesoda" target="_blank" rel="noopener noreferrer" class="contact-way">
+          <div class="contact-way-left"><span class="contact-way-label">Instagram</span><span class="contact-way-value">@l1mesoda</span></div>
           <span class="contact-way-arrow">↗</span>
         </a>
         <a href="#" class="contact-way">
@@ -373,15 +373,15 @@
       </div>
     </div>
     <div class="reveal">
-      <form class="contact-form" onsubmit="return false;">
+      <form class="contact-form" action="https://formspree.io/f/xvzwedjj" method="POST">
         <div class="field-group">
-          <div class="field"><label>Your Name</label><input type="text" placeholder="Priya Sharma"></div>
-          <div class="field"><label>Brand Name</label><input type="text" placeholder="Your Brand"></div>
+          <div class="field"><label>Your Name</label><input type="text" name="name" placeholder="Priya Sharma" required></div>
+          <div class="field"><label>Brand Name</label><input type="text" name="brand" placeholder="Your Brand" required></div>
         </div>
-        <div class="field"><label>Email</label><input type="email" placeholder="hello@yourbrand.com"></div>
+        <div class="field"><label>Email</label><input type="email" name="email" placeholder="hello@yourbrand.com" required></div>
         <div class="field">
           <label>What do you need?</label>
-          <select>
+          <select name="service" required>
             <option value="" disabled selected>Select a service</option>
             <option>Fashion Photography</option>
             <option>F&amp;B Photography</option>
@@ -390,8 +390,8 @@
             <option>Something else</option>
           </select>
         </div>
-        <div class="field"><label>Tell us about your project</label><textarea placeholder="What's the vibe? What are you launching? What's the timeline?"></textarea></div>
-        <button type="submit" class="submit-btn">Send It Over</button>
+        <div class="field"><label>Tell us about your project</label><textarea name="message" placeholder="What's the vibe? What are you launching? What's the timeline?" required></textarea></div>
+        <button type="submit" class="submit-btn" id="submitBtn">Send It Over</button>
       </form>
     </div>
   </div>
@@ -443,4 +443,5 @@
   setTimeout(() => reveals.forEach(el => el.classList.add('visible')), 1500);
 </script>
 </body>
-</
+</html>
+ 
