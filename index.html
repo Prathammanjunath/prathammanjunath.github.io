@@ -173,6 +173,9 @@
     .contact-form, .field { width: 100%; box-sizing: border-box; }
     .reveal { opacity: 1; transform: translateY(0); }
   }
+ 
+  .play-btn { width:70px;height:70px;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,0.5);transition:transform .2s,background .2s; }
+  .work-item:hover .play-btn { transform:scale(1.1);background:rgba(200,240,0,0.3);border-color:var(--lime); }
   @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
  
   @media (max-width: 900px) {
@@ -284,15 +287,18 @@
     </div>
   </div>
   <div class="work-grid">
-    <div class="work-item reveal">
-      <div class="work-img" style="position:relative;background:#000;padding-bottom:177.77%;height:0;">
-        <iframe 
-          src="https://www.youtube.com/embed/2pOk7kvzss4?rel=0&modestbranding=1&playsinline=1"
-          style="position:absolute;inset:0;width:100%;height:100%;border:none;"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
+    <div class="work-item reveal" onclick="window.open('https://youtube.com/shorts/2pOk7kvzss4','_blank')" style="cursor:pointer;">
+      <div class="work-img" style="position:relative;background:#000;min-height:400px;">
+        <img src="https://img.youtube.com/vi/2pOk7kvzss4/maxresdefault.jpg" alt="Latest Reel"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"
+          onerror="this.src='https://img.youtube.com/vi/2pOk7kvzss4/hqdefault.jpg'" />
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);"></div>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:3;">
+          <div class="play-btn">
+            <div style="width:0;height:0;border-top:14px solid transparent;border-bottom:14px solid transparent;border-left:22px solid white;margin-left:5px;"></div>
+          </div>
+        </div>
+        <div style="position:absolute;bottom:1rem;right:1rem;z-index:3;background:rgba(255,0,0,0.9);border-radius:6px;padding:3px 8px;font-size:.65rem;font-weight:700;color:white;letter-spacing:.05em;">▶ SHORTS</div>
       </div>
       <div class="work-label">Reel</div>
       <div class="work-overlay"><p class="work-cat">Social Media</p><h3 class="work-title-card">Latest Reel</h3></div>
@@ -452,3 +458,4 @@
 </script>
 </body>
 </html>
+ 
