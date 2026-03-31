@@ -447,55 +447,40 @@
   <p>Made with 🍋 &amp; good taste.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<!-- Lightbox Overlay -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">&#x2715;</span>
+  <img id="lightboxImg" src="" alt="Photo" onclick="event.stopPropagation()" />
+</div>
+
 <script>
-  // Lightbox
-  function openLightbox(src) {
-    document.getElementById('lightboxImg').src = src;
-    document.getElementById('lightbox').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', function(e) {
-    if(e.key === 'Escape') closeLightbox();
-  });
-</script><script>
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  // Nav scroll behaviour - show background only when scrolled
+  // Nav scroll
   const nav = document.querySelector('nav');
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
+    nav.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  // Only init custom cursor on devices with a real mouse (pointer: fine)
+  // Custom cursor (desktop only)
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
   if (window.matchMedia('(pointer: fine)').matches) {
     let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
     (function loop(){ rx+=(mx-rx)*.13; ry+=(my-ry)*.13; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
   }
+
+  // Reveal on scroll
   const reveals = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(el => observer.observe(el));
   } else {
     reveals.forEach(el => el.classList.add('visible'));
   }
-  // Fallback: show all sections after 1.5s in case observer doesn't fire
   setTimeout(() => reveals.forEach(el => el.classList.add('visible')), 1500);
 
   // Lightbox
@@ -509,28 +494,17 @@
     document.body.style.overflow = '';
   }
   document.addEventListener('keydown', function(e) {
-    if(e.key === 'Escape') closeLightbox();
+    if (e.key === 'Escape') closeLightbox();
   });
 
-  // Lightbox
-  function openLightbox(src) {
-    document.getElementById('lightboxImg').src = src;
-    document.getElementById('lightbox').classList.add('active');
-    document.body.style.overflow = 'hidden';
+  // Video fallback
+  var vid = document.getElementById('cloudinaryVideo');
+  var fallback = document.getElementById('videoFallback');
+  if (vid && fallback) {
+    function showFallback() { vid.style.display='none'; fallback.style.display='block'; }
+    vid.addEventListener('error', showFallback);
+    setTimeout(function() { if (vid.readyState === 0) showFallback(); }, 5000);
   }
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', function(e) {
-    if(e.key === 'Escape') closeLightbox();
-  });
 </script>
-
-<!-- Lightbox Overlay -->
-<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
-  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
-  <img id="lightboxImg" src="" alt="Photo" onclick="event.stopPropagation()" />
-</div>
 </body>
 </html>
