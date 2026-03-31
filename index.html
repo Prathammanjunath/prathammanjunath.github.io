@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -178,7 +178,8 @@
   .work-item:hover .play-btn { transform:scale(1.1);background:rgba(200,240,0,0.3);border-color:var(--lime); }
 
   /* Lightbox */
-  .lightbox-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:9999; align-items:center; justify-content:center; cursor:zoom-out; animation:lbFadeIn .25s ease; }
+  .lightbox-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:99999; align-items:center; justify-content:center; cursor:zoom-out; }
+  .lightbox-overlay.active { display:flex !important; animation:lbFadeIn .25s ease; }
   .lightbox-overlay.active { display:flex; }
   .lightbox-overlay img { max-width:95vw; max-height:95vh; object-fit:contain; border-radius:8px; animation:lbZoomIn .3s cubic-bezier(.25,.46,.45,.94); }
   .lightbox-close { position:absolute; top:1.2rem; right:1.5rem; color:white; font-size:2rem; font-weight:300; cursor:pointer; opacity:.7; transition:opacity .2s; line-height:1; }
@@ -186,6 +187,7 @@
   @keyframes lbFadeIn { from{opacity:0} to{opacity:1} }
   @keyframes lbZoomIn { from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
   .work-img img { cursor:zoom-in; }
+  .work-item:hover .zoom-hint { opacity:1 !important; }
 
   @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
@@ -325,12 +327,14 @@
         <source src="https://res.cloudinary.com/dufwiqhjs/video/upload/Strawberry_Supreme_-_C3_V3_sd0lt6.mp4" type="video/mp4">
       </video>
     </div>
-    <div class="work-item reveal">
+    <div class="work-item reveal" onclick="openLightbox('https://res.cloudinary.com/dufwiqhjs/image/upload/v1774930216/NIT03794_copy_de97i5.jpg')" style="cursor:zoom-in;">
       <div class="work-img" style="position:relative;overflow:hidden;">
         <img src="https://res.cloudinary.com/dufwiqhjs/image/upload/v1774930216/NIT03794_copy_de97i5.jpg" alt="F&B Photography"
           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94);"
-          loading="lazy"
-          onclick="openLightbox(this.src)" />
+          loading="lazy" />
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;background:rgba(0,0,0,0.3);" class="zoom-hint">
+          <span style="color:white;font-size:2rem;">🔍</span>
+        </div>
       </div>
       <div class="work-label">F&amp;B</div>
       <div class="work-overlay"><p class="work-cat">Restaurant Campaign</p><h3 class="work-title-card">The Ember Kitchen</h3></div>
