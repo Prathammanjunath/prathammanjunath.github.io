@@ -176,6 +176,17 @@
 
   .play-btn { width:70px;height:70px;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,0.5);transition:transform .2s,background .2s; }
   .work-item:hover .play-btn { transform:scale(1.1);background:rgba(200,240,0,0.3);border-color:var(--lime); }
+
+  /* Lightbox */
+  .lightbox-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:9999; align-items:center; justify-content:center; cursor:zoom-out; animation:lbFadeIn .25s ease; }
+  .lightbox-overlay.active { display:flex; }
+  .lightbox-overlay img { max-width:95vw; max-height:95vh; object-fit:contain; border-radius:8px; animation:lbZoomIn .3s cubic-bezier(.25,.46,.45,.94); }
+  .lightbox-close { position:absolute; top:1.2rem; right:1.5rem; color:white; font-size:2rem; font-weight:300; cursor:pointer; opacity:.7; transition:opacity .2s; line-height:1; }
+  .lightbox-close:hover { opacity:1; }
+  @keyframes lbFadeIn { from{opacity:0} to{opacity:1} }
+  @keyframes lbZoomIn { from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .work-img img { cursor:zoom-in; }
+
   @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
   @media (max-width: 900px) {
@@ -318,7 +329,8 @@
       <div class="work-img" style="position:relative;overflow:hidden;">
         <img src="https://res.cloudinary.com/dufwiqhjs/image/upload/v1774930216/NIT03794_copy_de97i5.jpg" alt="F&B Photography"
           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94);"
-          loading="lazy" />
+          loading="lazy"
+          onclick="openLightbox(this.src)" />
       </div>
       <div class="work-label">F&amp;B</div>
       <div class="work-overlay"><p class="work-cat">Restaurant Campaign</p><h3 class="work-title-card">The Ember Kitchen</h3></div>
@@ -435,7 +447,21 @@
   <p>Made with 🍋 &amp; good taste.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if(e.key === 'Escape') closeLightbox();
+  });
+</script><script>
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   // Nav scroll behaviour - show background only when scrolled
@@ -470,6 +496,40 @@
   }
   // Fallback: show all sections after 1.5s in case observer doesn't fire
   setTimeout(() => reveals.forEach(el => el.classList.add('visible')), 1500);
+
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if(e.key === 'Escape') closeLightbox();
+  });
+
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if(e.key === 'Escape') closeLightbox();
+  });
 </script>
+
+<!-- Lightbox Overlay -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightboxImg" src="" alt="Photo" onclick="event.stopPropagation()" />
+</div>
 </body>
 </html>
