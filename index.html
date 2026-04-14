@@ -210,7 +210,7 @@
   .slideshow { position:relative; width:100%; height:100%; min-height:280px; overflow:hidden; z-index:3; }
   .slideshow-slide { position:absolute; inset:0; opacity:0; transition:opacity .8s ease; z-index:2; }
   .slideshow-slide.active { opacity:1; z-index:3; }
-  .slideshow-slide img { width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
+  .slideshow-slide img { width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; background:#0f0f0f; }
   .slideshow-dots { position:absolute; bottom:.8rem; left:50%; transform:translateX(-50%); display:flex; gap:.5rem; z-index:10; }
   .slideshow-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4); cursor:pointer; transition:background .3s; border:none; padding:0; }
   .slideshow-dot.active { background:var(--lime); }
@@ -341,9 +341,9 @@
       </video>
     </div>
     <div class="work-item reveal" onclick="openLightbox('https://res.cloudinary.com/dufwiqhjs/image/upload/v1774930216/NIT03794_copy_de97i5.jpg')" style="cursor:zoom-in;">
-      <div class="work-img" style="position:relative;overflow:hidden;">
+      <div class="work-img" style="position:relative;padding-bottom:125%;height:0;overflow:hidden;">
         <img src="https://res.cloudinary.com/dufwiqhjs/image/upload/v1774930216/NIT03794_copy_de97i5.jpg" alt="F&B Photography"
-          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94);"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#0f0f0f;"
           loading="lazy" />
         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;background:rgba(0,0,0,0.3);" class="zoom-hint">
           <span style="color:white;font-size:2rem;">🔍</span>
@@ -353,8 +353,8 @@
       <div class="work-overlay"><p class="work-cat">Restaurant Campaign</p><h3 class="work-title-card">Kopitiam Lah</h3></div>
     </div>
     <div class="work-item reveal">
-      <div class="work-img" style="position:relative;min-height:280px;">
-        <div class="slideshow" id="slideshow1" style="z-index:3;">
+      <div class="work-img" style="position:relative;padding-bottom:125%;height:0;overflow:hidden;">
+        <div class="slideshow" id="slideshow1" style="z-index:3;position:absolute;inset:0;">
           <div class="slideshow-slide active" onclick="openLightbox('https://res.cloudinary.com/dufwiqhjs/image/upload/v1776149280/Chebel5634_copy_cluzd0.jpg',['https://res.cloudinary.com/dufwiqhjs/image/upload/v1776149280/Chebel5634_copy_cluzd0.jpg','https://res.cloudinary.com/dufwiqhjs/image/upload/v1776149279/Chebel5931_copy_z6py8j.jpg','https://res.cloudinary.com/dufwiqhjs/image/upload/v1776149278/Chebel5873_copy_o9xzhx.jpg','https://res.cloudinary.com/dufwiqhjs/image/upload/v1776149280/Chebel5615_copy_ydtif5.jpg'],0)" style="cursor:zoom-in;">
             <img src="https://res.cloudinary.com/dufwiqhjs/image/upload/v1776149280/Chebel5634_copy_cluzd0.jpg" alt="Chebel 1" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
             <div class="slide-zoom-hint"><span>🔍</span></div>
