@@ -106,11 +106,11 @@
   .w3 { background: linear-gradient(145deg,#101828 0%,#182840 40%,#080d18 100%); }
   .w4 { background: linear-gradient(145deg,#1a1a10 0%,#3a3018 40%,#0d0d08 100%); }
   .work-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces',serif; font-style: italic; font-size: .8rem; color: rgba(250,250,245,.12); letter-spacing: .1em; }
-  .work-overlay { position: absolute; inset: 0; background: linear-gradient(to top,rgba(15,15,15,.9) 0%,transparent 50%); display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; opacity: 0; transition: opacity .3s; }
+  .work-overlay { position: absolute; inset: 0; background: linear-gradient(to top,rgba(15,15,15,.9) 0%,transparent 50%); display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; opacity: 0; transition: opacity .3s; z-index: 4; pointer-events: none; }
   .work-item:hover .work-overlay { opacity: 1; }
   .work-cat { font-size: .65rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--lime); margin-bottom: .4rem; }
   .work-title-card { font-family: 'Fraunces',serif; font-size: 1.4rem; font-weight: 700; line-height: 1.2; }
-  .work-label { position: absolute; top: 1.2rem; left: 1.2rem; background: rgba(15,15,15,.7); backdrop-filter: blur(8px); border-radius: 100px; padding: .35rem .9rem; font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--lime); }
+  .work-label { position: absolute; top: 1.2rem; left: 1.2rem; z-index: 5; background: rgba(15,15,15,.7); backdrop-filter: blur(8px); border-radius: 100px; padding: .35rem .9rem; font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--lime); }
 
   #about { background: var(--cream); color: var(--black); padding: 8rem 3rem; position: relative; overflow: hidden; }
   #about::before { content: ''; position: absolute; width: 600px; height: 600px; background: var(--lime); border-radius: 50%; top: -200px; right: -200px; opacity: .15; filter: blur(60px); }
@@ -381,8 +381,8 @@
           </div>
         </div>
       </div>
-      <div class="work-label">F&amp;B</div>
-      <div class="work-overlay"><p class="work-cat">F&amp;B Photography</p><h3 class="work-title-card">Chebel</h3></div>
+      <div class="work-label" style="position:absolute;top:1.2rem;left:1.2rem;z-index:5;">F&amp;B</div>
+      <div class="work-overlay" style="z-index:4;"><p class="work-cat">F&amp;B Photography</p><h3 class="work-title-card">Chebel</h3></div>
     </div>
     <div class="work-item reveal" onclick="openVideoModal_meeshoModal()" style="cursor:pointer;">
       <div class="work-img" style="position:relative;background:#000;min-height:280px;overflow:hidden;">
@@ -464,8 +464,8 @@
           </div>
         </div>
       </div>
-      <div class="work-label">Fashion</div>
-      <div class="work-overlay"><p class="work-cat">Fashion Photography</p><h3 class="work-title-card">Catalog</h3></div>
+      <div class="work-label" style="position:absolute;top:1.2rem;left:1.2rem;z-index:5;">Fashion</div>
+      <div class="work-overlay" style="z-index:4;"><p class="work-cat">Fashion Photography</p><h3 class="work-title-card">Catalog</h3></div>
     </div>
   </div>
 </section>
