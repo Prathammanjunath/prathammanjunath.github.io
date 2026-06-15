@@ -430,6 +430,52 @@
         <source src="https://res.cloudinary.com/dufwiqhjs/video/upload/Prabitha_-_Samsung_Final_Draft_1_gy3rpu.mp4" type="video/mp4">
       </video>
     </div>
+    <div class="work-item reveal" onclick="openVideoModal_mmModal()" style="cursor:pointer;">
+      <div class="work-img" style="position:relative;background:#000;min-height:280px;overflow:hidden;">
+        <img src="https://res.cloudinary.com/dufwiqhjs/video/upload/so_0,w_800/C04.1_dne6vx.jpg" alt="M M Production"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"
+          onerror="this.style.display='none'" />
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.4);z-index:1;"></div>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.8rem;z-index:2;">
+          <div class="play-btn"><div style="width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;border-left:18px solid white;margin-left:4px;"></div></div>
+          <span style="color:white;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;">Tap to Play</span>
+        </div>
+      </div>
+      <div class="work-label">Reel</div>
+      <div class="work-overlay"><p class="work-cat">Social Media</p><h3 class="work-title-card">M M Production</h3></div>
+    </div>
+
+    <!-- M M Production Video Modal -->
+    <div id="mmModal" onclick="if(event.target===this) closeVideoModal_mmModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:9999;align-items:center;justify-content:center;cursor:default;">
+      <button onclick="closeVideoModal_mmModal()" style="position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.3);color:white;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10000;">&#x2715;</button>
+      <video id="mmModalVideo" controls playsinline webkit-playsinline preload="metadata"
+        style="max-width:92vw;max-height:88vh;border-radius:14px;object-fit:contain;">
+        <source src="https://res.cloudinary.com/dufwiqhjs/video/upload/C04.1_dne6vx.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="work-item reveal" onclick="openVideoModal_orraModal()" style="cursor:pointer;">
+      <div class="work-img" style="position:relative;background:#000;min-height:280px;overflow:hidden;">
+        <img src="https://res.cloudinary.com/dufwiqhjs/video/upload/so_0,w_800/Third_Draft_-_End_Slate_1_rvbdtt.jpg" alt="Orra"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"
+          onerror="this.style.display='none'" />
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.4);z-index:1;"></div>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.8rem;z-index:2;">
+          <div class="play-btn"><div style="width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;border-left:18px solid white;margin-left:4px;"></div></div>
+          <span style="color:white;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;">Tap to Play</span>
+        </div>
+      </div>
+      <div class="work-label">Reel</div>
+      <div class="work-overlay"><p class="work-cat">Social Media</p><h3 class="work-title-card">Orra</h3></div>
+    </div>
+
+    <!-- Orra Video Modal -->
+    <div id="orraModal" onclick="if(event.target===this) closeVideoModal_orraModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:9999;align-items:center;justify-content:center;cursor:default;">
+      <button onclick="closeVideoModal_orraModal()" style="position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.3);color:white;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10000;">&#x2715;</button>
+      <video id="orraModalVideo" controls playsinline webkit-playsinline preload="metadata"
+        style="max-width:92vw;max-height:88vh;border-radius:14px;object-fit:contain;">
+        <source src="https://res.cloudinary.com/dufwiqhjs/video/upload/Third_Draft_-_End_Slate_1_rvbdtt.mp4" type="video/mp4">
+      </video>
+    </div>
       <div class="work-item reveal">
       <div class="work-img" style="position:relative;padding-bottom:125%;height:0;overflow:hidden;">
         <div class="slideshow" id="slideshow2" style="z-index:3;position:absolute;inset:0;">
@@ -796,6 +842,32 @@ function closeLightbox(e) {
   function closeVideoModal_samsungModal() {
     document.getElementById('samsungModal').style.display = 'none';
     document.getElementById('samsungModalVideo').pause();
+    document.body.style.cursor = '';
+    var c = document.getElementById('cursor'); var r = document.getElementById('cursorRing');
+    if (c) c.style.display = ''; if (r) r.style.display = '';
+  }
+  function openVideoModal_mmModal() {
+    document.getElementById('mmModal').style.display = 'flex';
+    document.body.style.cursor = 'default';
+    var c = document.getElementById('cursor'); var r = document.getElementById('cursorRing');
+    if (c) c.style.display = 'none'; if (r) r.style.display = 'none';
+  }
+  function closeVideoModal_mmModal() {
+    document.getElementById('mmModal').style.display = 'none';
+    document.getElementById('mmModalVideo').pause();
+    document.body.style.cursor = '';
+    var c = document.getElementById('cursor'); var r = document.getElementById('cursorRing');
+    if (c) c.style.display = ''; if (r) r.style.display = '';
+  }
+  function openVideoModal_orraModal() {
+    document.getElementById('orraModal').style.display = 'flex';
+    document.body.style.cursor = 'default';
+    var c = document.getElementById('cursor'); var r = document.getElementById('cursorRing');
+    if (c) c.style.display = 'none'; if (r) r.style.display = 'none';
+  }
+  function closeVideoModal_orraModal() {
+    document.getElementById('orraModal').style.display = 'none';
+    document.getElementById('orraModalVideo').pause();
     document.body.style.cursor = '';
     var c = document.getElementById('cursor'); var r = document.getElementById('cursorRing');
     if (c) c.style.display = ''; if (r) r.style.display = '';
